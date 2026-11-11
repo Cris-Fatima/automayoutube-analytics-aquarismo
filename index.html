@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cristina Procópio · Automação e Python</title>
+  <meta name="description" content="Portfólio de Cristina Procópio: automação com Python, APIs e análise de dados.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f6faf9;
+      --surface: #ffffff;
+      --text: #12221f;
+      --muted: #52645f;
+      --line: #dbe7e4;
+      --accent: #0f7a6c;
+      --accent-soft: #e0f2ee;
+      --code-bg: #0f1d1b;
+      --code-text: #cfe9e3;
+      --radius: 14px;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --bg: #0b1513;
+        --surface: #12201d;
+        --text: #e6f1ee;
+        --muted: #9db3ad;
+        --line: #20332f;
+        --accent: #4fd1b8;
+        --accent-soft: #163a33;
+        --code-bg: #07100e;
+        --code-text: #cfe9e3;
+      }
+    }
+    :root[data-theme="dark"] {
+      --bg: #0b1513;
+      --surface: #12201d;
+      --text: #e6f1ee;
+      --muted: #9db3ad;
+      --line: #20332f;
+      --accent: #4fd1b8;
+      --accent-soft: #163a33;
+      --code-bg: #07100e;
+      --code-text: #cfe9e3;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+      font-size: 17px;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: var(--accent); }
+    .wrap { max-width: 880px; margin: 0 auto; padding: 0 16px; }
+
+    /* Navegação */
+    nav {
+      position: sticky; top: 0; z-index: 10;
+      background: color-mix(in srgb, var(--bg) 88%, transparent);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--line);
+    }
+    nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 60px; gap: 16px; }
+    .logo { font-family: "JetBrains Mono", monospace; font-weight: 500; color: var(--text); text-decoration: none; }
+    .logo span { color: var(--accent); }
+    nav ul { display: flex; gap: 22px; list-style: none; margin: 0; padding: 0; }
+    nav ul a { color: var(--muted); text-decoration: none; font-size: 15px; font-weight: 500; }
+    nav ul a:hover { color: var(--text); }
+
+    /* Hero */
+    header.hero { padding: 88px 0 64px; }
+    .eyebrow {
+      display: inline-block; font-family: "JetBrains Mono", monospace; font-size: 13px;
+      color: var(--accent); background: var(--accent-soft);
+      padding: 4px 10px; border-radius: 999px; margin-bottom: 20px;
+    }
+    h1 { font-size: clamp(34px, 6vw, 52px); line-height: 1.1; letter-spacing: -0.02em; margin: 0 0 18px; }
+    .lead { font-size: 19px; color: var(--muted); max-width: 620px; margin: 0 0 30px; }
+    .actions { display: flex; flex-wrap: wrap; gap: 12px; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 11px 18px; border-radius: 10px; font-weight: 600; font-size: 15px;
+      text-decoration: none; border: 1px solid var(--line); color: var(--text); background: var(--surface);
+    }
+    .btn.primary { background: var(--accent); border-color: var(--accent); color: var(--bg); }
+    .btn:hover { filter: brightness(1.06); }
+
+    section { padding: 56px 0; border-top: 1px solid var(--line); }
+    h2 { font-size: 14px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--muted); margin: 0 0 28px; font-weight: 600; }
+    h3 { font-size: 24px; margin: 0 0 8px; letter-spacing: -0.01em; }
+
+    /* Cartões de projeto */
+    .card {
+      background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+      padding: 28px; margin-bottom: 20px;
+    }
+    .card.featured { border-color: color-mix(in srgb, var(--accent) 45%, var(--line)); }
+    .card p { color: var(--muted); margin: 0 0 16px; }
+    .tags { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0 20px; padding: 0; list-style: none; }
+    .tags li {
+      font-family: "JetBrains Mono", monospace; font-size: 12.5px;
+      padding: 3px 9px; border-radius: 6px; background: var(--accent-soft); color: var(--accent);
+    }
+    .points { margin: 0 0 20px; padding-left: 20px; color: var(--muted); }
+    .points li { margin-bottom: 6px; }
+    .points strong { color: var(--text); font-weight: 600; }
+    pre {
+      background: var(--code-bg); color: var(--code-text); border-radius: 10px;
+      padding: 16px 18px; overflow-x: auto; font-family: "JetBrains Mono", monospace; font-size: 13.5px;
+      line-height: 1.6; margin: 0 0 20px; font-variant-ligatures: none;
+    }
+    pre .c { color: #6f8f88; }
+    .links { display: flex; flex-wrap: wrap; gap: 18px; font-weight: 600; font-size: 15px; }
+    .links a { text-decoration: none; }
+    .links a:hover { text-decoration: underline; }
+    .result-title { font-size: 13px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); font-weight: 600; margin: 24px 0 12px; }
+    .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 0 0 20px; }
+    .stat { background: var(--accent-soft); border-radius: 10px; padding: 14px 16px; }
+    .stat b { display: block; font-size: 22px; line-height: 1.2; color: var(--text); letter-spacing: -0.01em; }
+    .stat span { font-size: 13px; color: var(--muted); }
+    @media (max-width: 600px) { .stats { grid-template-columns: repeat(2, 1fr); } }
+    .card.placeholder { border-style: dashed; background: transparent; }
+    .card.placeholder p { margin: 0; }
+
+    /* Habilidades */
+    .skills { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+    .skill { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px; }
+    .skill b { display: block; margin-bottom: 6px; }
+    .skill span { color: var(--muted); font-size: 15px; }
+
+    .about p { max-width: 660px; color: var(--muted); }
+    .about p strong { color: var(--text); }
+
+    footer { padding: 48px 0 64px; border-top: 1px solid var(--line); color: var(--muted); font-size: 15px; }
+    footer .links { margin-bottom: 18px; }
+
+    @media (max-width: 600px) {
+      body { font-size: 16px; }
+      nav ul { gap: 14px; }
+      nav ul li.hide-sm { display: none; }
+      header.hero { padding: 56px 0 44px; }
+      .card { padding: 22px 18px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="wrap">
+      <a class="logo" href="#">cris<span>.</span>py</a>
+      <ul>
+        <li><a href="#projetos">Projetos</a></li>
+        <li class="hide-sm"><a href="#habilidades">Habilidades</a></li>
+        <li><a href="#sobre">Sobre</a></li>
+        <li><a href="#contato">Contato</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main>
+    <!-- ===== Apresentação ===== -->
+    <header class="hero wrap">
+      <span class="eyebrow">Automação · Python · APIs</span>
+      <h1>Olá, sou Cristina Procópio.<br>Eu automatizo o trabalho repetitivo com Python.</h1>
+      <p class="lead">
+        Crio scripts que buscam dados em APIs, organizam as informações e entregam relatórios prontos.
+        Assim, sobra tempo para decidir em vez de copiar e colar.
+      </p>
+      <div class="actions">
+        <a class="btn primary" href="#projetos">Ver projetos</a>
+        <a class="btn" href="https://github.com/Cris-Fatima" target="_blank" rel="noopener">GitHub</a>
+        <a class="btn" href="https://www.linkedin.com/in/cristina-proc%C3%B3pio-296503274/" target="_blank" rel="noopener">LinkedIn</a>
+      </div>
+    </header>
+
+    <!-- ===== Projetos ===== -->
+    <section id="projetos">
+      <div class="wrap">
+        <h2>Projetos</h2>
+
+        <article class="card featured">
+          <h3>YouTube Analytics · Aquarismo</h3>
+          <p>
+            Script em Python que coleta as métricas de um canal pela YouTube Data API
+            e gera um relatório HTML e uma planilha CSV, com engajamento por vídeo e comparação entre Shorts e vídeos longos.
+          </p>
+          <ul class="tags">
+            <li>Python</li><li>YouTube Data API v3</li><li>pytest</li><li>CSV</li><li>HTML</li>
+          </ul>
+          <ul class="points">
+            <li><strong>Problema:</strong> conferir as métricas do canal vídeo por vídeo no YouTube Studio tomava tempo e não mostrava padrões.</li>
+            <li><strong>Solução:</strong> um comando busca os vídeos do canal (com paginação e requisições em lote), calcula a taxa de engajamento e gera o relatório.</li>
+            <li><strong>Boas práticas:</strong> só a biblioteca padrão do Python, chave da API em variável de ambiente (nunca no código) e testes automatizados com a API simulada.</li>
+          </ul>
+
+          <p class="result-title">Resultado real · canal @LoiraAquarismo</p>
+          <div class="stats">
+            <div class="stat"><b>50</b><span>vídeos analisados</span></div>
+            <div class="stat"><b>79 mil</b><span>views no canal</span></div>
+            <div class="stat"><b>1.250</b><span>views no melhor vídeo</span></div>
+            <div class="stat"><b>até 4,8%</b><span>engajamento no formato novo</span></div>
+          </div>
+          <ul class="points">
+            <li><strong>Descoberta:</strong> os vídeos com título descritivo e conteúdo educativo tiveram o maior alcance e engajamento de 2,5% a 4,8%. Os vídeos com mais views do estilo antigo, de títulos só com hashtags, ficavam entre 0,75% e 1,5%.</li>
+            <li><strong>Descoberta:</strong> hashtags sem relação com o tema trazem um pouco mais de views, mas derrubam o engajamento.</li>
+            <li><strong>Decisão:</strong> manter o formato educativo, postar com constância e medir de novo em 4 semanas.</li>
+          </ul>
+
+          <pre><span class="c"># Windows (PowerShell)</span>
+$env:YOUTUBE_API_KEY="sua-chave"
+python youtube_report.py --channel "@LoiraAquarismo" --max-videos 50
+<span class="c"># gera output/relatorio.html e output/videos.csv</span></pre>
+          <div class="links">
+            <!-- Se renomear o repositório, atualize este link -->
+            <a href="https://github.com/Cris-Fatima/automayoutube-analytics-aquarismo" target="_blank" rel="noopener">Código no GitHub →</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <h3>Canal de Aquarismo no YouTube</h3>
+          <p>
+            Canal onde produzo Shorts sobre aquarismo, com 1.000 inscritos e 79 mil views. Ele é também o laboratório dos meus projetos:
+            os dados do canal alimentam o script de analytics, e as conclusões guiam o que eu publico.
+          </p>
+          <ul class="tags">
+            <li>Criação de conteúdo</li><li>Edição de vídeo</li><li>Decisões com dados</li>
+          </ul>
+          <div class="links">
+            <a href="https://www.youtube.com/@LoiraAquarismo" target="_blank" rel="noopener">Assistir no YouTube →</a>
+          </div>
+        </article>
+
+        <!-- TROCAR: copie um dos blocos <article class="card"> acima para cada novo projeto e apague este aviso -->
+        <article class="card placeholder">
+          <p>Novos projetos de automação em breve.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ===== Habilidades ===== -->
+    <section id="habilidades">
+      <div class="wrap">
+        <h2>Habilidades</h2>
+        <div class="skills">
+          <div class="skill"><b>Python</b><span>Scripts de automação, tratamento de dados, testes com pytest</span></div>
+          <div class="skill"><b>APIs</b><span>Consumo de APIs REST, autenticação por chave, paginação</span></div>
+          <div class="skill"><b>Relatórios</b><span>Geração automática de relatórios em HTML a partir de dados</span></div>
+          <div class="skill"><b>Ferramentas</b><span>Git, GitHub, terminal, variáveis de ambiente</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Sobre ===== -->
+    <section id="sobre" class="about">
+      <div class="wrap">
+        <h2>Sobre</h2>
+        <!-- TROCAR: ajuste este texto com a sua história -->
+        <p>
+          Comecei a programar para resolver um problema real: entender o que funciona no meu canal de aquarismo.
+          Desse projeto veio o gosto por <strong>automação</strong>, que é transformar tarefas manuais
+          e repetitivas em scripts confiáveis.
+        </p>
+        <p>
+          Hoje estudo Python com foco em automação e integração com APIs, e procuro oportunidades
+          para aplicar isso no dia a dia de uma equipe.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===== Contato ===== -->
+  <footer id="contato">
+    <div class="wrap">
+      <h2>Contato</h2>
+      <div class="links">
+        <a href="https://github.com/Cris-Fatima" target="_blank" rel="noopener">GitHub</a>
+        <!-- Links de contato -->
+        <a href="https://www.linkedin.com/in/cristina-proc%C3%B3pio-296503274/" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://www.youtube.com/@LoiraAquarismo" target="_blank" rel="noopener">YouTube</a>
+      </div>
+      <p>© 2026 Cristina Procópio</p>
+    </div>
+  </footer>
+
+</body>
+</html>
